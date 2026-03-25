@@ -1,0 +1,406 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Marcellus&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-cinzel: 'Cinzel', serif;
+  --font-marcellus: 'Marcellus', serif;
+  --font-inter: 'Inter', sans-serif;
+
+  --color-mu-black: #050505;
+  --color-mu-dark: #0a0f1a;
+  --color-mu-darker: #020202;
+  --color-mu-gold: #ffd86b;
+  --color-mu-gold-dark: #b8922e;
+  --color-mu-blue: #8fd3ff;
+  --color-mu-blue-dark: #2a5a8a;
+  --color-mu-red: #e63946;
+  --color-mu-jade: #10b981;
+  --color-mu-jade-dark: #047857;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-mu-black);
+  background-image: url("https://www.transparenttextures.com/patterns/black-scales.png");
+  color: #d1d5db;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+}
+
+/* Base noise overlay for the entire app */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-cinzel);
+}
+
+.font-marcellus {
+  font-family: var(--font-marcellus);
+}
+
+/* MMORPG Text Styles */
+.text-epic {
+  background: linear-gradient(180deg, #ffffff 0%, #ffd86b 30%, #d4af37 60%, #8b6508 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,1)) drop-shadow(0 0 25px rgba(255,216,107,0.8));
+}
+
+.text-epic-blue {
+  background: linear-gradient(180deg, #ffffff 0%, #8fd3ff 30%, #3b82f6 60%, #1e3a8a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,1)) drop-shadow(0 0 25px rgba(143,211,255,0.8));
+}
+
+.text-epic-jade {
+  background: linear-gradient(180deg, #ffffff 0%, #34d399 30%, #059669 60%, #064e3b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,1)) drop-shadow(0 0 25px rgba(52,211,153,0.8));
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 15px rgba(255, 216, 107, 0.9), 0 0 30px rgba(255, 216, 107, 0.6), 0 4px 8px rgba(0,0,0,1);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 15px rgba(143, 211, 255, 0.9), 0 0 30px rgba(143, 211, 255, 0.6), 0 4px 8px rgba(0,0,0,1);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 15px rgba(230, 57, 70, 0.9), 0 0 30px rgba(230, 57, 70, 0.6), 0 4px 8px rgba(0,0,0,1);
+}
+
+.text-glow-jade {
+  text-shadow: 0 0 15px rgba(16, 185, 129, 0.9), 0 0 30px rgba(16, 185, 129, 0.6), 0 4px 8px rgba(0,0,0,1);
+}
+
+/* MMORPG Panels */
+.mmorpg-panel {
+  background: linear-gradient(180deg, #151515 0%, #080808 100%);
+  background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+  border: 2px solid #3a2a18;
+  border-top-color: #5c4305;
+  border-left-color: #4a3604;
+  box-shadow: 
+    inset 0 0 60px rgba(0,0,0,1),
+    inset 0 0 0 1px rgba(255,216,107,0.15),
+    inset 0 0 20px rgba(0,0,0,0.8),
+    0 30px 60px rgba(0,0,0,1),
+    0 0 30px rgba(0,0,0,0.9);
+  position: relative;
+}
+
+.mmorpg-panel::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  border: 1px solid #000;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.mmorpg-panel-gold {
+  background: linear-gradient(180deg, #1a150a 0%, #0a0804 100%);
+  background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+  border: 2px solid #5c4305;
+  border-top-color: #d4af37;
+  border-left-color: #a3770b;
+  box-shadow: 
+    inset 0 0 60px rgba(0,0,0,1),
+    inset 0 0 0 1px rgba(255,216,107,0.3),
+    inset 0 0 20px rgba(0,0,0,0.8),
+    0 30px 60px rgba(0,0,0,1),
+    0 0 40px rgba(184, 134, 11, 0.4);
+  position: relative;
+}
+
+.mmorpg-panel-jade {
+  background: linear-gradient(180deg, #061a14 0%, #020a08 100%);
+  background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+  border: 2px solid #064e3b;
+  border-top-color: #10b981;
+  border-left-color: #059669;
+  box-shadow: 
+    inset 0 0 60px rgba(0,0,0,1),
+    inset 0 0 0 1px rgba(16,185,129,0.3),
+    inset 0 0 20px rgba(0,0,0,0.8),
+    0 30px 60px rgba(0,0,0,1),
+    0 0 40px rgba(5, 150, 105, 0.4);
+  position: relative;
+}
+
+/* MMORPG Buttons */
+.mmorpg-button {
+  background: linear-gradient(180deg, #2a2a2a 0%, #111111 50%, #050505 100%);
+  border: 2px solid #444;
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.2),
+    inset 0 -4px 8px rgba(0,0,0,0.8),
+    0 8px 16px rgba(0,0,0,0.9);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,1);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mmorpg-button:hover {
+  background: linear-gradient(180deg, #333 0%, #1a1a1a 50%, #0a0a0a 100%);
+  border-color: #666;
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.3),
+    inset 0 -4px 8px rgba(0,0,0,0.8),
+    0 10px 20px rgba(0,0,0,0.9),
+    0 0 15px rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+.mmorpg-button:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.9);
+}
+
+.mmorpg-button-gold {
+  background: linear-gradient(180deg, #d4af37 0%, #8b6508 50%, #5c4305 100%);
+  border: 2px solid #ffe58f;
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.8),
+    inset 0 -4px 8px rgba(0,0,0,0.8),
+    0 10px 20px rgba(0,0,0,1),
+    0 0 30px rgba(212, 175, 55, 0.6);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,1), 0 0 15px rgba(255,255,255,0.5);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.mmorpg-button-gold::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+
+.mmorpg-button-gold:hover::after {
+  left: 200%;
+}
+
+.mmorpg-button-gold:hover {
+  background: linear-gradient(180deg, #f3c93f 0%, #a3770b 50%, #705206 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,1),
+    inset 0 -4px 8px rgba(0,0,0,0.8),
+    0 15px 30px rgba(0,0,0,1),
+    0 0 45px rgba(212, 175, 55, 0.9);
+  transform: translateY(-2px);
+}
+
+.mmorpg-button-gold:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.9);
+}
+
+.mmorpg-button-jade {
+  background: linear-gradient(180deg, #10b981 0%, #059669 50%, #064e3b 100%);
+  border: 2px solid #34d399;
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.8),
+    inset 0 -4px 8px rgba(0,0,0,0.8),
+    0 10px 20px rgba(0,0,0,1),
+    0 0 30px rgba(16, 185, 129, 0.6);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,1), 0 0 15px rgba(255,255,255,0.5);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.mmorpg-button-jade::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+
+.mmorpg-button-jade:hover::after {
+  left: 200%;
+}
+
+.mmorpg-button-jade:hover {
+  background: linear-gradient(180deg, #34d399 0%, #059669 50%, #064e3b 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,1),
+    inset 0 -4px 8px rgba(0,0,0,0.8),
+    0 15px 30px rgba(0,0,0,1),
+    0 0 45px rgba(16, 185, 129, 0.9);
+  transform: translateY(-2px);
+}
+
+.mmorpg-button-jade:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.9);
+}
+
+.mmorpg-button-red {
+  background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 50%, #450a0a 100%);
+  border: 2px solid #f87171;
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.4),
+    inset 0 -4px 8px rgba(0,0,0,0.6),
+    0 8px 16px rgba(0,0,0,0.9),
+    0 0 20px rgba(185, 28, 28, 0.4);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+  transition: all 0.2s ease;
+}
+
+.mmorpg-button-red:hover {
+  background: linear-gradient(180deg, #dc2626 0%, #991b1b 50%, #550c0c 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.6),
+    inset 0 -4px 8px rgba(0,0,0,0.6),
+    0 10px 20px rgba(0,0,0,0.9),
+    0 0 30px rgba(185, 28, 28, 0.7);
+  transform: translateY(-2px);
+}
+
+.mmorpg-button-red:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.9);
+}
+
+/* MMORPG Inventory Slots */
+.inventory-slot {
+  background: #050505;
+  border: 2px solid #2a2a2a;
+  box-shadow: inset 0 0 30px rgba(0,0,0,1), 0 10px 20px rgba(0,0,0,0.8);
+  position: relative;
+}
+
+.inventory-slot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.inventory-excellent {
+  border-color: #22c55e;
+  box-shadow: inset 0 0 50px rgba(34, 197, 94, 0.15), 0 0 20px rgba(34, 197, 94, 0.3), 0 10px 20px rgba(0,0,0,0.8);
+}
+
+.inventory-excellent::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 1px solid rgba(34, 197, 94, 0.5);
+  pointer-events: none;
+  animation: pulse-green 2s infinite;
+}
+
+.inventory-ancient {
+  border-color: #3b82f6;
+  box-shadow: inset 0 0 50px rgba(59, 130, 246, 0.15), 0 0 20px rgba(59, 130, 246, 0.3), 0 10px 20px rgba(0,0,0,0.8);
+}
+
+.inventory-ancient::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  pointer-events: none;
+  animation: pulse-blue 2s infinite;
+}
+
+.inventory-epic {
+  border-color: #a855f7;
+  box-shadow: inset 0 0 50px rgba(168, 85, 247, 0.15), 0 0 20px rgba(168, 85, 247, 0.3), 0 10px 20px rgba(0,0,0,0.8);
+}
+
+.inventory-epic::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  pointer-events: none;
+  animation: pulse-purple 2s infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.6); }
+}
+
+@keyframes pulse-blue {
+  0%, 100% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); }
+}
+
+@keyframes pulse-purple {
+  0%, 100% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(168, 85, 247, 0.6); }
+}
+
+.clip-angled {
+  clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+}
+.clip-angled-sm {
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.box-glow-gold {
+  box-shadow: 0 0 25px rgba(255, 216, 107, 0.6);
+}
+
+.box-glow-blue {
+  box-shadow: 0 0 25px rgba(143, 211, 255, 0.6);
+}
+
+.box-glow-jade {
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+}
+
+/* Mayan Pattern Overlay */
+.bg-mayan-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H24v-2zm0 4h20v2H24v-2zm0 4h20v2H24v-2zm0 4h20v2H24v-2z' fill='%23ffd86b' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-mu-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-mu-gold-dark);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-mu-gold);
+}

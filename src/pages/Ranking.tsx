@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
-// 1. Definimos la estructura de los datos que vienen del PHP
+// Definimos la estructura de los datos que vienen del PHP
 interface Player {
   Name: string;
   cLevel: number;
   resets: number;
-  class?: string; // Opcional por ahora
-  guild?: string; // Opcional por ahora
 }
 
 export const Ranking: React.FC = () => {
-  // 2. Estados para los datos y la carga
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // 3. Llamada al puente de cPanel
+    // Llamada a tu API en cPanel
     fetch('https://arkamuonlines20.com/api-test.php')
       .then((res) => res.json())
       .then((data) => {
-        setPlayers(data);
+        // Si la data es un array, la guardamos
+        if (Array.isArray(data)) {
+          setPlayers(data);
+        }
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error vinculando ranking:", err);
+        console.error("Error cargando ranking:", err);
         setLoading(false);
       });
   }, []);
@@ -42,6 +42,8 @@ export const Ranking: React.FC = () => {
           referrerPolicy="no-referrer"
         />
       </div>
+      <div className="absolute inset-0 bg-mayan-pattern opacity-5 mix-blend-overlay pointer-events-none z-10"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,216,107,0.05)_0%,transparent_70%)] pointer-events-none z-10"></div>
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30">
         <div className="text-center mb-12">
@@ -51,7 +53,7 @@ export const Ranking: React.FC = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-mu-gold to-transparent mx-auto"></div>
           <p className="mt-4 text-gray-400 font-inter max-w-2xl mx-auto">
-            {loading ? "Sincronizando guerreros con el servidor..." : "Los guerreros más formidables del continente."}
+            {loading ? "Sincronizando guerreros..." : "Los guerreros más formidables del continente."}
           </p>
         </div>
 
@@ -73,28 +75,35 @@ export const Ranking: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {players.map((player, idx) => (
-                  <tr 
-                    key={idx} 
-                    className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 3 ? 'bg-mu-gold/5' : 'bg-black/40'}`}
-                  >
-                    <td className="p-4 text-center">
-                      <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-cinzel font-bold
-                        ${idx === 0 ? 'bg-mu-gold/20 text-mu-gold border border-mu-gold' : 
-                          idx === 1 ? 'bg-gray-500/20 text-gray-300 border border-gray-400' : 
-                          idx === 2 ? 'bg-amber-900/20 text-amber-600 border border-amber-700' : 
-                          'text-gray-500'}`}
-                      >
-                        {idx + 1}
-                      </span>
+                {players.length > 0 ? (
+                  players.map((player, idx) => (
+                    <tr 
+                      key={idx} 
+                      className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 3 ? 'bg-mu-gold/5' : 'bg-black/40'}`}
+                    >
+                      <td className="p-4 text-center">
+                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-cinzel font-bold
+                          ${idx === 0 ? 'bg-mu-gold/20 text-mu-gold border border-mu-gold' : 
+                            idx === 1 ? 'bg-gray-500/20 text-gray-300 border border-gray-400' : 
+                            idx === 2 ? 'bg-amber-900/20 text-amber-600 border border-amber-700' : 
+                            'text-gray-500'}`}
+                        >
+                          {idx + 1}
+                        </span>
+                      </td>
+                      <td className="p-4 font-marcellus text-white text-lg">{player.Name}</td>
+                      <td className="p-4 font-inter text-mu-blue text-sm">Online</td>
+                      <td className="p-4 font-marcellus text-white text-center">{player.cLevel}</td>
+                      <td className="p-4 font-marcellus text-mu-gold text-center font-bold">{player.resets}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} className="p-10 text-center text-gray-500 font-marcellus">
+                      {loading ? "Cargando datos del servidor..." : "No se encontraron personajes."}
                     </td>
-                    {/* Nota: Usamos Name, cLevel y resets con las minúsculas exactas que devolvió el PHP */}
-                    <td className="p-4 font-marcellus text-white text-lg">{player.Name}</td>
-                    <td className="p-4 font-inter text-mu-blue text-sm">Proximamente</td>
-                    <td className="p-4 font-marcellus text-white text-center">{player.cLevel}</td>
-                    <td className="p-4 font-marcellus text-mu-gold text-center font-bold">{player.resets}</td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

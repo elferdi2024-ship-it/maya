@@ -1,23 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
+// 1. Definimos la estructura de los datos que vienen del PHP
+interface Player {
+  Name: string;
+  cLevel: number;
+  resets: number;
+  class?: string; // Opcional por ahora
+  guild?: string; // Opcional por ahora
+}
+
 export const Ranking: React.FC = () => {
+  // 2. Estados para los datos y la carga
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
 
-  const players = [
-    { rank: 1, name: "Kukulkan", class: "Dark Lord", level: "400", resets: "150", guild: "Mayas" },
-    { rank: 2, name: "Balam", class: "Dark Knight", level: "400", resets: "148", guild: "Titans" },
-    { rank: 3, name: "Ixchel", class: "Fairy Elf", level: "400", resets: "145", guild: "Mayas" },
-    { rank: 4, name: "AhPuch", class: "Soul Master", level: "400", resets: "142", guild: "Underworld" },
-    { rank: 5, name: "Chaac", class: "Magic Gladiator", level: "400", resets: "140", guild: "Storm" },
-    { rank: 6, name: "Kinich", class: "Dark Lord", level: "400", resets: "138", guild: "SunGods" },
-    { rank: 7, name: "Ixbalanque", class: "Dark Knight", level: "400", resets: "135", guild: "Twins" },
-    { rank: 8, name: "Hunahpu", class: "Soul Master", level: "400", resets: "134", guild: "Twins" },
-    { rank: 9, name: "Camazotz", class: "Magic Gladiator", level: "400", resets: "130", guild: "Night" },
-    { rank: 10, name: "Huracan", class: "Dark Lord", level: "400", resets: "128", guild: "Storm" },
-  ];
+    // 3. Llamada al puente de cPanel
+    fetch('https://arkamuonlines20.com/api-test.php')
+      .then((res) => res.json())
+      .then((data) => {
+        setPlayers(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error vinculando ranking:", err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-mu-black pt-32 pb-24 relative z-20 overflow-hidden">
@@ -30,8 +42,6 @@ export const Ranking: React.FC = () => {
           referrerPolicy="no-referrer"
         />
       </div>
-      <div className="absolute inset-0 bg-mayan-pattern opacity-5 mix-blend-overlay pointer-events-none z-10"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,216,107,0.05)_0%,transparent_70%)] pointer-events-none z-10"></div>
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30">
         <div className="text-center mb-12">
@@ -41,7 +51,7 @@ export const Ranking: React.FC = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-mu-gold to-transparent mx-auto"></div>
           <p className="mt-4 text-gray-400 font-inter max-w-2xl mx-auto">
-            Los guerreros más formidables del continente.
+            {loading ? "Sincronizando guerreros con el servidor..." : "Los guerreros más formidables del continente."}
           </p>
         </div>
 
@@ -58,7 +68,6 @@ export const Ranking: React.FC = () => {
                   <th className="p-4 font-marcellus text-mu-gold text-center w-16">#</th>
                   <th className="p-4 font-marcellus text-gray-300">Nombre</th>
                   <th className="p-4 font-marcellus text-gray-300">Clase</th>
-                  <th className="p-4 font-marcellus text-gray-300">Guild</th>
                   <th className="p-4 font-marcellus text-gray-300 text-center">Nivel</th>
                   <th className="p-4 font-marcellus text-mu-gold text-center">Resets</th>
                 </tr>
@@ -76,13 +85,13 @@ export const Ranking: React.FC = () => {
                           idx === 2 ? 'bg-amber-900/20 text-amber-600 border border-amber-700' : 
                           'text-gray-500'}`}
                       >
-                        {player.rank}
+                        {idx + 1}
                       </span>
                     </td>
-                    <td className="p-4 font-marcellus text-white text-lg">{player.name}</td>
-                    <td className="p-4 font-inter text-mu-blue text-sm">{player.class}</td>
-                    <td className="p-4 font-inter text-gray-400 text-sm">{player.guild}</td>
-                    <td className="p-4 font-marcellus text-white text-center">{player.level}</td>
+                    {/* Nota: Usamos Name, cLevel y resets con las minúsculas exactas que devolvió el PHP */}
+                    <td className="p-4 font-marcellus text-white text-lg">{player.Name}</td>
+                    <td className="p-4 font-inter text-mu-blue text-sm">Proximamente</td>
+                    <td className="p-4 font-marcellus text-white text-center">{player.cLevel}</td>
                     <td className="p-4 font-marcellus text-mu-gold text-center font-bold">{player.resets}</td>
                   </tr>
                 ))}

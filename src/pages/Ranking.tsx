@@ -5,8 +5,8 @@ interface Player {
   Name: string;
   cLevel: number;
   resets: number;
-  Class: number; // ID numérico de la clase desde la DB
-  countryFlag: string;
+  Class: number; 
+  countryFlag?: string;
   OnlineStatus: number;
 }
 
@@ -14,25 +14,41 @@ export const Ranking: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Función para mapear el ID de clase a tus archivos en public/RANKING
+  // Mapeo exhaustivo de todas las clases y evoluciones extraído de tu xteam.tables.php
   const getClassImage = (classId: number): string => {
     const classMap: { [key: number]: string } = {
-      0: 'DW.png', 1: 'DARK_WIZARD.png', 2: 'DARK_WIZARD.png',   // Dark Wizard
-      16: 'BK.png', 17: 'BK.png', 18: 'BK.png',                 // Dark Knight
-      32: 'ELF.png', 33: 'ELF.png', 34: 'ELF.png',              // Elf
-      48: 'MG.png', 49: 'MG.png',                               // Magic Gladiator
-      64: 'DL.png', 65: 'DL.png',                               // Dark Lord
-      80: 'SUMM.png', 81: 'SUMM.png',                           // Summoner
-      96: 'RAGE_FIGTHER.png', 97: 'RAGE_FIGTHER.png',           // Rage Fighter
-      112: 'GROW_LANCER.png', 114: 'GROW_LANCER.png',           // Grow Lancer
-      128: 'RUNE.png', 129: 'RUNE.png',                         // Rune Wizard
-      144: 'SLAYER.png', 145: 'SLAYER.png',                     // Slayer
-      160: 'GUN_CRUSHER.png', 161: 'GUN_CRUSHER.png',           // Gun Crusher
-      176: 'KUNDUM.png',                                        // Kundun/Lemuria
-      192: 'ALCHE.png',                                         // Illusion Knight
+      // Dark Wizard
+      0: 'DW.png', 1: 'DW.png', 2: 'DW.png', 3: 'DW.png', 4: 'DW.png',
+      // Dark Knight
+      16: 'BK.png', 17: 'BK.png', 18: 'BK.png', 19: 'BK.png', 20: 'BK.png',
+      // Elf
+      32: 'ELF.png', 33: 'ELF.png', 34: 'ELF.png', 35: 'ELF.png', 36: 'ELF.png',
+      // Magic Gladiator
+      48: 'MG.png', 50: 'MG.png', 51: 'MG.png', 52: 'MG.png',
+      // Dark Lord
+      64: 'DL.png', 66: 'DL.png', 67: 'DL.png', 68: 'DL.png',
+      // Summoner
+      80: 'SUMM.png', 81: 'SUMM.png', 82: 'SUMM.png', 83: 'SUMM.png', 84: 'SUMM.png',
+      // Rage Fighter
+      96: 'RAGE_FIGTHER.png', 98: 'RAGE_FIGTHER.png', 99: 'RAGE_FIGTHER.png', 100: 'RAGE_FIGTHER.png',
+      // Grow Lancer
+      112: 'GROW_LANCER.png', 114: 'GROW_LANCER.png', 115: 'GROW_LANCER.png', 116: 'GROW_LANCER.png',
+      // Rune Wizard
+      128: 'RUNE.png', 129: 'RUNE.png', 130: 'RUNE.png', 131: 'RUNE.png', 132: 'RUNE.png',
+      // Slayer
+      144: 'SLAYER.png', 145: 'SLAYER.png', 146: 'SLAYER.png', 147: 'SLAYER.png', 148: 'SLAYER.png',
+      // Gun Crusher
+      160: 'GUN_CRUSHER.png', 161: 'GUN_CRUSHER.png', 162: 'GUN_CRUSHER.png', 163: 'GUN_CRUSHER.png', 164: 'GUN_CRUSHER.png',
+      // Light Wizard / Kundun
+      176: 'KUNDUM.png', 177: 'KUNDUM.png', 178: 'KUNDUM.png', 179: 'KUNDUM.png', 180: 'KUNDUM.png',
+      // Lemuria (Usando Kundum.png como base si no tienes el archivo LEMURIA.png)
+      192: 'KUNDUM.png', 193: 'KUNDUM.png', 194: 'KUNDUM.png', 195: 'KUNDUM.png', 196: 'KUNDUM.png',
+      // Illusion Knight
+      208: 'ALCHE.png', 209: 'ALCHE.png', 210: 'ALCHE.png', 211: 'ALCHE.png', 212: 'ALCHE.png',
+      // Alchemist
+      224: 'ALCHE.png', 225: 'ALCHE.png', 226: 'ALCHE.png', 227: 'ALCHE.png', 228: 'ALCHE.png',
     };
 
-    // Si el ID no está en la lista, usa DW.png por defecto
     const imageName = classMap[classId] || 'DW.png';
     return `/RANKING/${imageName}`;
   };
@@ -62,14 +78,14 @@ export const Ranking: React.FC = () => {
         <div className="text-center mb-12">
           <img src="/rank.png" className="mx-auto h-32 mb-4 drop-shadow-lg" alt="trophy" />
           <h2 className="font-cinzel font-bold text-4xl md:text-5xl">
-            RANKING <span className="text-mu-gold">GLOBAL</span>
+            RANKING <span className="text-mu-gold">TOP 50</span>
           </h2>
         </div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-lg overflow-hidden">
-          <div className="overflow-x-auto max-h-[700px]">
+          <div className="overflow-x-auto max-h-[800px] scrollbar-thin scrollbar-thumb-mu-gold">
             <table className="w-full text-left border-collapse min-w-[700px]">
-              <thead className="bg-black/60 sticky top-0 z-10">
+              <thead className="bg-black/80 sticky top-0 z-10 shadow-xl">
                 <tr className="text-gray-400 text-xs uppercase">
                   <th className="p-4 text-center">#</th>
                   <th className="p-4 text-center">Country</th>
@@ -81,26 +97,33 @@ export const Ranking: React.FC = () => {
               </thead>
               <tbody>
                 {players.map((player, idx) => (
-                  <tr key={idx} className="border-b border-white/5 hover:bg-white/5">
-                    <td className="p-4 text-center font-cinzel text-gray-500">{idx + 1}</td>
+                  <tr key={idx} className="border-b border-white/5 hover:bg-white/10 transition-colors">
+                    <td className="p-4 text-center font-cinzel text-gray-400">{idx + 1}</td>
                     
+                    {/* Banderas: Solución temporal segura */}
                     <td className="p-4 text-center">
-                      <img src={player.countryFlag || '/RANKING/ALCHE.png'} className="w-6 h-4 inline-block shadow-sm" alt="flag" />
+                      {player.countryFlag ? (
+                        <img src={player.countryFlag} className="w-6 h-4 inline-block shadow-sm" alt="flag" />
+                      ) : (
+                        <span className="text-xs text-gray-600 font-bold">N/A</span>
+                      )}
                     </td>
 
-                    {/* Columna Clase Actualizada con la nueva lógica */}
                     <td className="p-4 text-center">
                       <img 
                         src={getClassImage(player.Class)} 
-                        className="w-10 h-10 rounded-full border border-mu-gold/20 inline-block object-cover" 
+                        className="w-10 h-10 rounded-full border border-mu-gold/30 inline-block object-cover bg-black/50" 
                         alt="class" 
                         onError={(e) => (e.currentTarget.src = '/RANKING/DW.png')}
                       />
                     </td>
 
-                    <td className="p-4 font-semibold flex items-center gap-2 mt-2">
-                      {player.Name}
-                      <div className={`w-2 h-2 rounded-full ${player.OnlineStatus === 1 ? 'bg-green-500 shadow-[0_0_5px_#22c55e]' : 'bg-red-500'}`} />
+                    <td className="p-4 font-semibold">
+                      <div className="flex items-center gap-2">
+                        {player.Name}
+                        {/* Indicador de estado online usando la BD real */}
+                        <div className={`w-2 h-2 rounded-full ${player.OnlineStatus === 1 ? 'bg-green-500 shadow-[0_0_5px_#22c55e]' : 'bg-red-500'}`} />
+                      </div>
                     </td>
 
                     <td className="p-4 text-center">{player.cLevel}</td>

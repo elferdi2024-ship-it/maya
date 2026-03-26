@@ -308,7 +308,7 @@ export const Home: React.FC = () => {
           <img
             src="/mayafondo.png"
             alt="Videos Background"
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover opacity-60"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-mu-darker/95 via-mu-darker/80 to-mu-darker/95 z-10"></div>
@@ -392,7 +392,7 @@ export const Home: React.FC = () => {
             {/* Channel Link */}
             <div className="text-center mt-8">
               <a
-                href="https://www.youtube.com/@MUMAYA"
+                href="https://www.youtube.com/channel/UCjsgMMLMGTOA0xPFCjokL_Q"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-mu-gold hover:text-white font-marcellus transition-colors group"

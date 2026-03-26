@@ -13,6 +13,7 @@ import { Evento } from './pages/Evento';
 import { News } from './pages/News';
 import { Register } from './pages/Register';
 import { Ranking } from './pages/Ranking';
+import { Vip } from './pages/Vip';
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="/news" element={<News />} />
             <Route path="/register" element={<Register />} />
             <Route path="/ranking" element={<Ranking />} />
+            <Route path="/vip" element={<Vip />} />
           </Routes>
         </main>
         <Footer />

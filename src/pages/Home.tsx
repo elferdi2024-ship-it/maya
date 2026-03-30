@@ -428,7 +428,7 @@ export const Home: React.FC = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <a href="https://drive.google.com/file/d/1eFXWhLxLXogphev4JQ8KzZGJntqn4Mhn/view" target="_blank" rel="noopener noreferrer" className="mmorpg-button clip-angled px-8 py-4 flex items-center justify-center gap-3">
+                <a href="https://drive.google.com/file/d/1VAhzlTLRsFKc3ZkLrhW7uIDaW6CL0AyF/view" target="_blank" rel="noopener noreferrer" className="mmorpg-button clip-angled px-8 py-4 flex items-center justify-center gap-3">
                   <Download size={24} className="text-mu-blue relative z-10" />
                   <div className="text-left relative z-10">
                     <span className="block font-cinzel font-bold text-white tracking-wider leading-none mb-1">GOOGLE DRIVE</span>
